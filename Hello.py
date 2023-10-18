@@ -1,51 +1,109 @@
-# Copyright (c) Streamlit Inc. (2018-2022) Snowflake Inc. (2022)
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import streamlit as st
-from streamlit.logger import get_logger
+import openai
 
-LOGGER = get_logger(__name__)
+def homepage():
+    st.title("Narrative Business Prompting")
+    st.write("In this experiment, you will use a narrative Business Prompting Engine and experience its effects. This experiment will help develop and prove the use value of an assisted narrative business prompt engineering framework.")
+    if st.button("Begin experiment"):
+        st.session_state['page'] = 'experiment'
+        st.experimental_rerun()
 
 
-def run():
-    st.set_page_config(
-        page_title="Hello",
-        page_icon="👋",
-    )
+def experiment():
+    st.title("Narrative Business Prompting")
 
-    st.write("# Welcome to Streamlit! 👋")
+    # Set OpenAI API key from Streamlit secrets
+    openai.api_key = st.secrets["OPENAI_API_KEY"]
 
-    st.sidebar.success("Select a demo above.")
+    if "openai_model" not in st.session_state:
+        st.session_state["openai_model"] = "gpt-3.5-turbo"
 
-    st.markdown(
-        """
-        Streamlit is an open-source app framework built specifically for
-        Machine Learning and Data Science projects.
-        **👈 Select a demo from the sidebar** to see some examples
-        of what Streamlit can do!
-        ### Want to learn more?
-        - Check out [streamlit.io](https://streamlit.io)
-        - Jump into our [documentation](https://docs.streamlit.io)
-        - Ask a question in our [community
-          forums](https://discuss.streamlit.io)
-        ### See more complex demos
-        - Use a neural net to [analyze the Udacity Self-driving Car Image
-          Dataset](https://github.com/streamlit/demo-self-driving)
-        - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
-    """
-    )
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
+    #chat interface
+    if prompt := st.chat_input("What do you want to learn?"):
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        with st.chat_message("user"):
+            st.markdown(prompt)
+
+        with st.chat_message("assistant"):
+            message_placeholder = st.empty()
+            full_response = ""
+            for response in openai.ChatCompletion.create(
+                    model=st.session_state["openai_model"],
+                    messages=[
+                        {"role": m["role"], "content": m["content"]}
+                        for m in st.session_state.messages
+                    ],
+                    stream=True,
+            ):
+                full_response += response.choices[0].delta.get("content", "")
+                message_placeholder.markdown(full_response + "▌")
+            message_placeholder.markdown(full_response)
+        st.session_state.messages.append({"role": "assistant", "content": full_response})
+
+    #sidebar
+    with st.sidebar:
+        st.title("Instructions")
+        st.write("Your text/instructions go here...")
+
+        if st.button("Submit my solution"):
+            # Check if there are any messages in the chat history
+            if st.session_state.messages and len(st.session_state.messages) > 0:
+                st.session_state['page'] = 'finished_prompting'
+                st.experimental_rerun()
+            else:
+                st.error('Please prompt your story first...')
+
+
+def assess_your_story():
+    st.title("Please assess your story.")
+    st.write('Read your story and evaluate in terms of a) creativity/ innovation (generic v. Unique) b) applicability (once/ very specific / Needs Work v. General/ directly deployable ) c) how likely will you use this')
+    st.write('0 = very low rank; 5 = very high rank')
+
+    selfassessment_creativity = st.slider('Creativity', 0, 5, 3)
+
+    selfassessment_innovaiton = st.slider('Innovation', 0, 5, 3)
+
+    selfassessment_applicability = st.slider('Applicability', 0, 5, 3)
+
+    selfassessment_actualuse = st.slider('How likely will you use this', 0, 5, 3)
+
+    if st.button("Submit and finish experiment"):
+        st.session_state['page'] = 'checkout'
+        st.experimental_rerun()
+
+
+    with st.sidebar:
+        st.title("Your Submission")
+        st.write("Goes here")
+
+def checkout():
+    st.title("Thank you!")
+
+    #ToDo remove restart button
+    if st.button("Restart experiment"):
+        st.session_state['page'] = 'Begin experiment'
+        st.experimental_rerun()
+
+def main():
+    st.session_state.setdefault('page', 'Begin experiment')
+    page = st.session_state['page']
+
+    if page == 'Begin experiment':
+        homepage()
+    elif page == 'experiment':
+        experiment()
+    elif page == 'finished_prompting':
+        assess_your_story()
+    elif page == 'checkout':
+        checkout()
 
 
 if __name__ == "__main__":
-    run()
+    main()
