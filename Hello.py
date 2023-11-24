@@ -4,7 +4,7 @@ client = OpenAI()
 
 def homepage():
     st.title("Narrative Business Prompting")
-    st.write("12.46 In this experiment, you will use a narrative Business Prompting Engine and experience its effects. This experiment will help develop and prove the use value of an assisted narrative business prompt engineering framework.")
+    st.write("12.48 In this experiment, you will use a narrative Business Prompting Engine and experience its effects. This experiment will help develop and prove the use value of an assisted narrative business prompt engineering framework.")
     st.write(st.secrets.my_little_secret)
     if st.button("Begin experiment"):
         st.session_state['page'] = 'experiment'
