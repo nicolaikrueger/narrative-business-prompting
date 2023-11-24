@@ -15,7 +15,7 @@ def experiment():
     st.title("Narrative Business Prompting")
 
     # Set OpenAI API key from Streamlit secrets
-    openai.api_key = st.secrets["OPENAI_API_KEY"]
+    client = OpenAI(st.secrets["OPENAI_API_KEY"])
 
     #if "openai_model" not in st.session_state:
     #    st.session_state["openai_model"] = "gpt-3.5-turbo"
