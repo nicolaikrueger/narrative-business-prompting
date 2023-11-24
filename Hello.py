@@ -4,6 +4,7 @@ import openai
 def homepage():
     st.title("Narrative Business Prompting")
     st.write("In this experiment, you will use a narrative Business Prompting Engine and experience its effects. This experiment will help develop and prove the use value of an assisted narrative business prompt engineering framework.")
+    st.write(st.secrets.my_little_secret)
     if st.button("Begin experiment"):
         st.session_state['page'] = 'experiment'
         st.experimental_rerun()
@@ -31,21 +32,15 @@ def experiment():
         with st.chat_message("user"):
             st.markdown(prompt)
 
-        with st.chat_message("assistant"):
-            message_placeholder = st.empty()
-            full_response = ""
-            for response in openai.ChatCompletion.create(
-                    model=st.session_state["openai_model"],
-                    messages=[
-                        {"role": m["role"], "content": m["content"]}
-                        for m in st.session_state.messages
-                    ],
-                    stream=True,
-            ):
-                full_response += response.choices[0].delta.get("content", "")
-                message_placeholder.markdown(full_response + "▌")
-            message_placeholder.markdown(full_response)
+        response = openai.ChatCompletion.create(
+            model=st.session_state["openai_model"],
+            messages=st.session_state.messages
+        )
+        full_response = response.choices[0].message["content"]
+
         st.session_state.messages.append({"role": "assistant", "content": full_response})
+        with st.chat_message("assistant"):
+            st.markdown(full_response)
 
     #sidebar
     with st.sidebar:
