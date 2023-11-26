@@ -1,6 +1,7 @@
 import streamlit as st
 from openai import OpenAI
 client = OpenAI()
+client = OpenAI(st.secrets["OPENAI_API_KEY"])
 
 def homepage():
     st.title("Narrative Business Prompting")
@@ -15,7 +16,7 @@ def experiment():
     st.title("Narrative Business Prompting")
 
     # Set OpenAI API key from Streamlit secrets
-    client = OpenAI(st.secrets["OPENAI_API_KEY"])
+    
 
     #if "openai_model" not in st.session_state:
     #    st.session_state["openai_model"] = "gpt-3.5-turbo"
