@@ -1,12 +1,12 @@
 import streamlit as st
 from openai import OpenAI
-client = OpenAI()
+
 
 
 def homepage():
     st.title("Narrative Business Prompting")
     st.write("In this experiment, you will use a narrative Business Prompting Engine and experience its effects. This experiment will help develop and prove the use value of an assisted narrative business prompt engineering framework.")
-    st.write(st.secrets.my_little_secret)
+    st.write(st.secrets.MY_FUN)
     if st.button("Begin experiment"):
         st.session_state['page'] = 'experiment'
         st.experimental_rerun()
@@ -18,8 +18,8 @@ def experiment():
     # Set OpenAI API key from Streamlit secrets
     client = OpenAI(api_key=st.secrets.OPENAI_API_KEY)
 
-    #if "openai_model" not in st.session_state:
-    #    st.session_state["openai_model"] = "gpt-3.5-turbo"
+    if "openai_model" not in st.session_state:
+        st.session_state["openai_model"] = "gpt-3.5-turbo"
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -28,35 +28,27 @@ def experiment():
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
-    #chat interface
-    if prompt := st.chat_input("What do you want to learn?"):
-        #st.session_state.messages.append({"role": "user", "content": prompt})
-        #with st.chat_message("user"):
-        #    st.markdown(prompt)
+    if prompt := st.chat_input("What is up?"):
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        with st.chat_message("user"):
+            st.markdown(prompt)
 
-        #response = openai.ChatCompletion.create(
-        #    model=st.session_state["openai_model"],
-        #    messages=st.session_state.messages
-        #)
-        #full_response = response.choices[0].message["content"]
-
-        #st.session_state.messages.append({"role": "assistant", "content": full_response})
-        #with st.chat_message("assistant"):
-        #    st.markdown(full_response)
-
-
-        completion = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": "You are a poetic assistant, skilled in explaining complex programming concepts with creative flair."},
-            {"role": "user", "content": "Compose a poem that explains the concept of recursion in programming."}
-        ]
-        )
-
-        #print(completion.choices[0].message)
         with st.chat_message("assistant"):
-            st.markdown(completion.choices[0].message)
-
+            message_placeholder = st.empty()
+            full_response = ""
+            for response in client.chat.completions.create(
+                model=st.session_state["openai_model"],
+                messages=[
+                    {"role": m["role"], "content": m["content"]}
+                    for m in st.session_state.messages
+                ],
+                stream=True,
+            ):
+                full_response += (response.choices[0].delta.content or "")
+                message_placeholder.markdown(full_response + "▌")
+            message_placeholder.markdown(full_response)
+        st.session_state.messages.append({"role": "assistant", "content": full_response})
+                
     #sidebar
     with st.sidebar:
         st.title("Instructions")
