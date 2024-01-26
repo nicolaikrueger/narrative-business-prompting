@@ -67,14 +67,15 @@ def assess_your_story():
     st.title("Please assess your story.")
     st.write('Read your story and evaluate in terms of a) creativity/ innovation (generic v. Unique) b) applicability (once/ very specific / Needs Work v. General/ directly deployable ) c) how likely will you use this')
     st.write('0 = very low rank; 5 = very high rank')
+    selfassessment = {}
 
-    selfassessment_creativity = st.slider('Creativity', 0, 5, 3)
+    selfassessment["creativity"] = st.slider('Creativity', 0, 5, 3)
 
-    selfassessment_innovaiton = st.slider('Innovation', 0, 5, 3)
+    selfassessment["innovaiton"] = st.slider('Innovation', 0, 5, 3)
 
-    selfassessment_applicability = st.slider('Applicability', 0, 5, 3)
+    selfassessment["applicability"] = st.slider('Applicability', 0, 5, 3)
 
-    selfassessment_actualuse = st.slider('How likely will you use this', 0, 5, 3)
+    selfassessment["actualuse"] = st.slider('How likely will you use this', 0, 5, 3)
 
     if st.button("Submit and finish experiment"):
         # TODO: Write to database
