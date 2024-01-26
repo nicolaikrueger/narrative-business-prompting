@@ -6,10 +6,10 @@ from openai import OpenAI
 def homepage():
     st.title("Narrative Business Prompting")
     st.write("In this experiment, you will use a narrative Business Prompting Engine and experience its effects. This experiment will help develop and prove the use value of an assisted narrative business prompt engineering framework.")
-    st.write(st.secrets.MY_FUN)
+
     if st.button("Begin experiment"):
         st.session_state['page'] = 'experiment'
-        st.experimental_rerun()
+        st.rerun()
 
 
 def experiment():
@@ -58,7 +58,7 @@ def experiment():
             # Check if there are any messages in the chat history
             if st.session_state.messages and len(st.session_state.messages) > 0:
                 st.session_state['page'] = 'finished_prompting'
-                st.experimental_rerun()
+                st.rerun()
             else:
                 st.error('Please prompt your story first...')
 
@@ -77,8 +77,9 @@ def assess_your_story():
     selfassessment_actualuse = st.slider('How likely will you use this', 0, 5, 3)
 
     if st.button("Submit and finish experiment"):
+        # TODO: Write to database
         st.session_state['page'] = 'checkout'
-        st.experimental_rerun()
+        st.rerun()
 
 
     with st.sidebar:
@@ -91,7 +92,7 @@ def checkout():
     #ToDo remove restart button
     if st.button("Restart experiment"):
         st.session_state['page'] = 'Begin experiment'
-        st.experimental_rerun()
+        st.rerun()
 
 def main():
     st.session_state.setdefault('page', 'Begin experiment')
