@@ -136,6 +136,7 @@ def experiment():
     #sidebar
     with st.sidebar:
         st.title("Instructions")
+        st.write(query)
         st.text(query[0].description)
         st.text(query[0].goal)
 
