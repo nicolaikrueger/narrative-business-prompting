@@ -47,6 +47,10 @@ def query_db(query, params=None):
                 print(f"Failed to close the database connection: {e}")
         server.stop()
 
+def choose_random_task():
+    result = query_db("SELECT id FROM tasks ORDER BY RAND() LIMIT 1")
+    return result[0]["uuid"]
+
 def homepage():
     st.title("Narrative Business Prompting")
     st.write("In this experiment, you will use a narrative Business Prompting Engine and experience its effects. This experiment will help develop and prove the use value of an assisted narrative business prompt engineering framework.")
@@ -92,8 +96,7 @@ def homepage():
 
 
 def experiment():
-    query = query_db("SELECT * FROM tasks")
-    st.write(query)
+    query = query_db("SELECT * FROM tasks WHERE uuid = ?", st.session_state['task_id'])
     st.title("Narrative Business Prompting")
 
     # Set OpenAI API key from Streamlit secrets
@@ -133,7 +136,8 @@ def experiment():
     #sidebar
     with st.sidebar:
         st.title("Instructions")
-        st.write("Your text/instructions go here...")
+        st.text(query[0].description)
+        st.text(query[0].goal)
 
         if st.button("Submit my solution"):
             # Check if there are any messages in the chat history
