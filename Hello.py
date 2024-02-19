@@ -1,7 +1,41 @@
 import streamlit as st
+import io
+import pymysql
 from openai import OpenAI
+from sshtunnel import SSHTunnelForwarder
 
+ssh_key_str = st.secrets["ssh_key"]
 
+ssh_key_fileobj = io.StringIO(ssh_key_str)
+
+server = SSHTunnelForwarder(
+    (st.secrets["ssh_host"], 22),
+    ssh_username=st.secrets["ssh_username"],
+    ssh_pkey=ssh_key_fileobj,
+    remote_bind_address=(st.secrets["db_host"], 3306),
+)
+
+def query_db(query):
+    server.start()  # Start the SSH tunnel
+    try:
+        conn = pymysql.connect(
+            host='127.0.0.1',
+            user=st.secrets["db_user"], 
+            password=st.secrets["db_password"],
+            db=st.secrets["db_name"],
+            port=server.local_bind_port
+        )
+        with conn:
+            with conn.cursor() as cursor:
+                cursor.execute(query)
+                result = cursor.fetchall()
+                return result
+    except Exception as e:
+        print(f"Database query failed: {e}")
+        return None
+    finally:
+        conn.close() if 'conn' in locals() or 'conn' in globals() else None
+        server.stop()  # Stop the SSH tunnel
 
 def homepage():
     st.title("Narrative Business Prompting")
@@ -13,6 +47,8 @@ def homepage():
 
 
 def experiment():
+    query = query_db("SELECT * FROM tasks")
+    st.write(query)
     st.title("Narrative Business Prompting")
 
     # Set OpenAI API key from Streamlit secrets
