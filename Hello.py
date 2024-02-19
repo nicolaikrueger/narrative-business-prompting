@@ -2,6 +2,7 @@ import streamlit as st
 import io
 import pymysql
 import paramiko
+import uuid
 from openai import OpenAI
 from sshtunnel import SSHTunnelForwarder
 
@@ -80,18 +81,16 @@ def homepage():
 
     if st.button("I agree to the terms, let's start the experiment"):
         task_id = choose_random_task()
+        conversation_uuid = str(uuid.uuid4())
         st.session_state['task_id'] = task_id
+        st.session_state['conversation_uuid'] = result.uuid
         sql = """
         INSERT INTO conversations 
         (uuid, task_id, start_time, end_time, accepted_tos, age, tech_savviness, storytelling_experience, casestudy_experience, role) 
         VALUES 
-        (UUID(), ?, NOW(), null, true, ?, ?, ?, ?, ?);
+        (%s, %s, NOW(), null, true, %s, %s, %s, %s, %s);
         """
-        values = (task_id, age, tech_savviness, storytelling_experience, casestudy_experience, role if role != 'Other' else other_role)
-
-        print(values)
-        result = query_db(sql, values)
-        st.session_state['conversation_id'] = result.uuid
+        values = (conversation_uuid, task_id, age, tech_savviness, storytelling_experience, casestudy_experience, role if role != 'Other' else other_role)
         st.session_state['page'] = 'experiment'
         st.rerun()
 
