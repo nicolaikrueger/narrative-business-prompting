@@ -136,8 +136,8 @@ def experiment():
     #sidebar
     with st.sidebar:
         st.title("Instructions")
-        st.text(query[0]["description"])
-        st.text(query[0]["goal"])
+        st.write(query[0]["description"])
+        st.write(query[0]["goal"])
 
         if st.button("Submit my solution"):
             # Check if there are any messages in the chat history
