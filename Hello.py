@@ -87,10 +87,10 @@ def homepage():
         VALUES 
         (UUID(), ?, NOW(), null, true, ?, ?, ?, ?, ?);
         """
-        values = (task_id, age, tech_savviness, storytelling_experience, casestudy_experience, role)
+        values = (task_id, age, tech_savviness, storytelling_experience, casestudy_experience, role if role != 'Other' else other_role)
 
+        print(values)
         result = query_db(sql, values)
-        print(result)
         st.session_state['conversation_id'] = result.uuid
         st.session_state['page'] = 'experiment'
         st.rerun()
