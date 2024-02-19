@@ -36,8 +36,12 @@ def query_db(query):
         print(f"Database query failed: {e}")
         return None
     finally:
-        conn.close() if 'conn' in locals() or 'conn' in globals() else None
-        server.stop()  # Stop the SSH tunnel
+        if conn: 
+            try:
+                conn.close()
+            except Exception as e:
+                print(f"Failed to close the database connection: {e}")
+        server.stop()
 
 def homepage():
     st.title("Narrative Business Prompting")
