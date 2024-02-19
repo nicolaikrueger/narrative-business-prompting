@@ -1,17 +1,19 @@
 import streamlit as st
 import io
 import pymysql
+import paramiko
 from openai import OpenAI
 from sshtunnel import SSHTunnelForwarder
 
 ssh_key_str = st.secrets["ssh_key"]
 
 ssh_key_fileobj = io.StringIO(ssh_key_str)
+ssh_key_paramiko = paramiko.RSAKey.from_private_key(ssh_key_fileobj)
 
 server = SSHTunnelForwarder(
     (st.secrets["ssh_host"], 22),
     ssh_username=st.secrets["ssh_username"],
-    ssh_pkey=ssh_key_fileobj,
+    ssh_pkey=ssh_key_paramiko,
     remote_bind_address=(st.secrets["db_host"], 3306),
 )
 
