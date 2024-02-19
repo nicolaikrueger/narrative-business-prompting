@@ -95,9 +95,12 @@ def homepage():
         (%s, %s, NOW(), null, true, %s, %s, %s, %s, %s);
         """
         values = (conversation_uuid, task_id, age, tech_savviness, storytelling_experience, casestudy_experience, role if role != 'Other' else other_role)
-        query_db(sql, values)
-        st.session_state['page'] = 'experiment'
-        st.rerun()
+        rows_affected = query_db(sql, values)
+        if rows_affected is None:
+            st.error("Failed to start the experiment. Please try again.")
+        else:
+            st.session_state['page'] = 'experiment'
+            st.rerun()
 
 
 def experiment():
