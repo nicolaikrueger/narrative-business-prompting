@@ -83,7 +83,7 @@ def homepage():
         task_id = choose_random_task()
         conversation_uuid = str(uuid.uuid4())
         st.session_state['task_id'] = task_id
-        st.session_state['conversation_uuid'] = result.uuid
+        st.session_state['conversation_uuid'] = conversation_uuid
         sql = """
         INSERT INTO conversations 
         (uuid, task_id, start_time, end_time, accepted_tos, age, tech_savviness, storytelling_experience, casestudy_experience, role) 
