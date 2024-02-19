@@ -48,7 +48,7 @@ def query_db(query, params=None):
         server.stop()
 
 def choose_random_task():
-    result = query_db("SELECT id FROM tasks ORDER BY RAND() LIMIT 1")
+    result = query_db("SELECT uuid FROM tasks ORDER BY RAND() LIMIT 1")
     return result[0]["uuid"]
 
 def homepage():
@@ -90,6 +90,7 @@ def homepage():
         values = (task_id, age, tech_savviness, storytelling_experience, casestudy_experience, role)
 
         result = query_db(sql, values)
+        print(result)
         st.session_state['conversation_id'] = result.uuid
         st.session_state['page'] = 'experiment'
         st.rerun()
