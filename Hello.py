@@ -35,8 +35,12 @@ def query_db(query, params=None):
                     cursor.execute(query)
                 else:
                     cursor.execute(query, params)
-                result = cursor.fetchall()
-                return result
+                if query.strip().upper().startswith('SELECT'):
+                    result = cursor.fetchall()
+                    return result
+                else:
+                    conn.commit()
+                    return cursor.rowcount
     except Exception as e:
         print(f"Database query failed: {e}")
         return None
