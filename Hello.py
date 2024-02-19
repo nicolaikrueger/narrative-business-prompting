@@ -17,7 +17,7 @@ server = SSHTunnelForwarder(
     remote_bind_address=(st.secrets["db_host"], 3306),
 )
 
-def query_db(query):
+def query_db(query, params=None):
     server.start()  # Start the SSH tunnel
     try:
         conn = pymysql.connect(
@@ -25,11 +25,15 @@ def query_db(query):
             user=st.secrets["db_user"], 
             password=st.secrets["db_password"],
             db=st.secrets["db_name"],
-            port=server.local_bind_port
+            port=server.local_bind_port,
+            cursorclass=pymysql.cursors.DictCursor
         )
         with conn:
             with conn.cursor() as cursor:
-                cursor.execute(query)
+                if params is None:
+                    cursor.execute(query)
+                else:
+                    cursor.execute(query, params)
                 result = cursor.fetchall()
                 return result
     except Exception as e:
