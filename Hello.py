@@ -50,8 +50,43 @@ def query_db(query, params=None):
 def homepage():
     st.title("Narrative Business Prompting")
     st.write("In this experiment, you will use a narrative Business Prompting Engine and experience its effects. This experiment will help develop and prove the use value of an assisted narrative business prompt engineering framework.")
+    st.write("Please tell us something about yourself and get familiar with our data privacy policy (written in the sidebar).")
 
-    if st.button("Begin experiment"):
+    #sidebar
+    with st.sidebar:
+        st.title("Data privacy policy")
+        st.write("Put the legal stuff here...")
+
+    # questions regarding the user
+    tech_savviness = st.slider('Tech Savviness', 1, 5, 3)
+    storytelling_experience = st.slider('Storytelling Experience', 1, 5, 3)
+    casestudy_experience = st.slider('Case Study Experience', 1, 5, 3)
+
+    age = st.number_input('Age', min_value=16)
+
+    role = st.selectbox(
+        'Role',
+        ('Student', 'Lecturer / Professor / etc.', 'Professional', 'Other')
+    )
+
+    # Textbox for "Other" role
+    other_role = ""  # Initialize an empty string for the "Other" role
+    if role == 'Other':
+        other_role = st.text_input('Please specify your role')
+
+    if st.button("I agree to the terms, let's start the experiment"):
+        task_id = choose_random_task()
+        st.session_state['task_id'] = task_id
+        sql = """
+        INSERT INTO conversations 
+        (uuid, task_id, start_time, end_time, accepted_tos, age, tech_savviness, storytelling_experience, casestudy_experience, role) 
+        VALUES 
+        (UUID(), ?, NOW(), null, true, ?, ?, ?, ?, ?);
+        """
+        values = (task_id, age, tech_savviness, storytelling_experience, casestudy_experience, role)
+
+        result = query_db(sql, values)
+        st.session_state['conversation_id'] = result.uuid
         st.session_state['page'] = 'experiment'
         st.rerun()
 
