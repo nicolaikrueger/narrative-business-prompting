@@ -8,7 +8,7 @@ from sshtunnel import SSHTunnelForwarder
 ssh_key_str = st.secrets["ssh_key"]
 
 ssh_key_fileobj = io.StringIO(ssh_key_str)
-ssh_key_paramiko = paramiko.RSAKey.from_private_key(ssh_key_fileobj)
+ssh_key_paramiko = paramiko.Ed25519Key.from_private_key(ssh_key_fileobj)
 
 server = SSHTunnelForwarder(
     (st.secrets["ssh_host"], 22),
