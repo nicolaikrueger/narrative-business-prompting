@@ -96,7 +96,7 @@ def homepage():
 
 
 def experiment():
-    query = query_db("SELECT * FROM tasks WHERE uuid = ?", st.session_state['task_id'])
+    query = query_db("SELECT * FROM tasks WHERE uuid = %s", st.session_state['task_id'])
     st.title("Narrative Business Prompting")
 
     # Set OpenAI API key from Streamlit secrets
