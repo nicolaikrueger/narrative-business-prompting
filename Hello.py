@@ -185,6 +185,7 @@ def assess_your_story():
     selfassessment["actualuse"] = st.slider('How likely will you use this', 0, 5, 3)
 
     if st.button("Submit and finish experiment"):
+        query_db("UPDATE conversations SET end_time = NOW() WHERE uuid = %s", st.session_state["conversation_uuid"])
         for key, value in selfassessment.items():
             sql = """
             INSERT INTO ratings (uuid, conversation_uuid, rating_type_id, rating, round)
@@ -208,6 +209,7 @@ def checkout():
         if st.button("Yes, Restart experiment!"):
             st.session_state['round'] = 2
             st.session_state['sequence'] = 1
+            st.session_state['messages'] = []
             st.session_state['page'] = 'experiment'
             st.rerun()
 
