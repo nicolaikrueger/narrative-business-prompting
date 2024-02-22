@@ -168,7 +168,7 @@ def store_message(role, content, token_cost = None):
         INSERT INTO your_table_name (uuid, conversation_uuid, token_cost, context, message, sequence, round)
         VALUES (UUID(), %s, %s, %s, %s, %s, %s);    
         """
-        query_db(sql, (st.session_state["conversation_uuid", token_cost, role, content, st.session_state["sequence"], st.session_state["round"]]))
+        query_db(sql, (st.session_state["conversation_uuid"], token_cost, role, content, st.session_state["sequence"], st.session_state["round"]))
         st.session_state["sequence"] += 1
 
 def assess_your_story():
