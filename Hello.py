@@ -162,7 +162,7 @@ def experiment():
 def store_message(role, content):
         st.session_state.messages.append({"role": role, "content": content})
         sql = """
-        INSERT INTO your_table_name (uuid, conversation_uuid, token_cost, context, message, sequence, round)
+        INSERT INTO messages (uuid, conversation_uuid, token_cost, context, message, sequence, round)
         VALUES (UUID(), %s, %s, %s, %s, %s, %s);    
         """
         query_db(sql, (st.session_state["conversation_uuid"], 0, role, content, st.session_state["sequence"], st.session_state["round"]))
