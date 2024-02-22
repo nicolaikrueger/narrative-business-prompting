@@ -142,7 +142,7 @@ def experiment():
                 full_response += (response.choices[0].delta.content or "")
                 # save token cost
                 if response.choices[0].delta.cost:
-                    token_cost = response.choices[0].delta.cost
+                    token_cost = response.usage.total_tokens
                 message_placeholder.markdown(full_response + "▌")
             message_placeholder.markdown(full_response)
         store_message("assistant", full_response, token_cost)
