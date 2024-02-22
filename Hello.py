@@ -141,7 +141,7 @@ def experiment():
             ):
                 full_response += (response.choices[0].delta.content or "")
                 # save token cost
-                if response.choices[0].delta.cost:
+                if response.usage.total_tokens:
                     token_cost = response.usage.total_tokens
                 message_placeholder.markdown(full_response + "▌")
             message_placeholder.markdown(full_response)
@@ -162,7 +162,7 @@ def experiment():
                 st.error('Please prompt your story first...')
 
 
-def store_message(role, content, token_cost = None):
+def store_message(role, content, token_cost = 0):
         st.session_state.messages.append({"role": role, "content": content})
         sql = """
         INSERT INTO your_table_name (uuid, conversation_uuid, token_cost, context, message, sequence, round)
