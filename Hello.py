@@ -108,7 +108,9 @@ def homepage():
 def experiment():
     query = query_db("SELECT * FROM tasks WHERE uuid = %s", st.session_state['task_id'])
     st.title("Narrative Business Prompting")
-
+    if st.session_state['round'] == 2:
+        #TODO: Add a prompt for the second round
+        st.info("This is the second round of the experiment. We have prepared a prompt for you: \n ", icon="ℹ️")
     # Set OpenAI API key from Streamlit secrets
     client = OpenAI(api_key=st.secrets.OPENAI_API_KEY)
 
@@ -199,11 +201,15 @@ def assess_your_story():
 
 def checkout():
     st.title("Thank you!")
+    if st.session_state['round'] == 1:
+        st.write("You have finished the first round of the experiment. Do you want to try again with help?")
 
-    #ToDo remove restart button
-    if st.button("Restart experiment"):
-        st.session_state['page'] = 'Begin experiment'
-        st.rerun()
+        #ToDo remove restart button
+        if st.button("Yes, Restart experiment!"):
+            st.session_state['round'] = 2
+            st.session_state['sequence'] = 1
+            st.session_state['page'] = 'experiment'
+            st.rerun()
 
 def main():
     st.session_state.setdefault('page', 'Begin experiment')
