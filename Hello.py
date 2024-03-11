@@ -57,7 +57,7 @@ def choose_random_task():
     return result[0]["uuid"]
 
 def homepage():
-    st.title("Narrative Business Prompting")
+    st.title("Narrative Business Prompting 0.2")
     st.write("In this experiment, you will use a narrative Business Prompting Engine and experience its effects. This experiment will help develop and prove the use value of an assisted narrative business prompt engineering framework.")
     st.write("Please tell us something about yourself and get familiar with our data privacy policy (written in the sidebar).")
 
