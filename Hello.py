@@ -150,9 +150,7 @@ def experiment():
     with st.sidebar:
         st.title("Instructions")
         st.write("You are a student of Business Administration attending a hackathon hosted by your instructor. The winner will receive a reward. This is the task written on your screen:")
-        st.markdown("<p style=\"border: 1rem solid black;padding: 1rem;background: blue;\">Imagine you are a consultant hired by a " + query[0]["company"] + " company in " + query[0]["location"] + " facing various challenges in the current business environment. The company produces " + query[0]["product"] + " and is experiencing increased competition, changing market dynamics, and disruptions in the supply chain.<br></p>")
-        st.write(query[0]["description"])
-        st.write(query[0]["goal"])
+        st.markdown("<p style=\"border: 1rem solid black;padding: 1rem;background: blue;\">Imagine you are a consultant hired by a " + query[0]["company"] + " company in " + query[0]["location"] + " facing various challenges in the current business environment. The company produces " + query[0]["product"] + " and is experiencing increased competition, changing market dynamics, and disruptions in the supply chain.<br></p>", unsafe_allow_html=True)
 
         if st.button("Submit my solution"):
             # Check if there are any messages in the chat history
