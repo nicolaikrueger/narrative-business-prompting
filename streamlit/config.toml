@@ -1,0 +1,6 @@
+[client]
+showErrorDetails = false
+
+[browser]
+#deactivating streamlit services triangulation 
+gatherUsageStats = false
