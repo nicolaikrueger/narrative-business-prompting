@@ -142,9 +142,10 @@ def experiment():
                 stream=True,
             ):
                 full_response += (response.choices[0].delta.content or "")
+                token_cost += response.usage.total_tokens
                 message_placeholder.markdown(full_response + "▌")
             message_placeholder.markdown(full_response)
-        store_message("assistant", full_response)
+        store_message("assistant", full_response, token_cost)
                 
     #sidebar
     with st.sidebar:
@@ -161,13 +162,13 @@ def experiment():
                 st.error('Please prompt your story first...')
 
 
-def store_message(role, content):
+def store_message(role, content, token_cost=0):
         st.session_state.messages.append({"role": role, "content": content})
         sql = """
         INSERT INTO messages (uuid, conversation_uuid, token_cost, context, message, sequence, round)
         VALUES (UUID(), %s, %s, %s, %s, %s, %s);    
         """
-        query_db(sql, (st.session_state["conversation_uuid"], 0, role, content, st.session_state["sequence"], st.session_state["round"]))
+        query_db(sql, (st.session_state["conversation_uuid"], token_cost, role, content, st.session_state["sequence"], st.session_state["round"]))
         st.session_state["sequence"] += 1
 
 def assess_your_story():
