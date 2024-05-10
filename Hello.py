@@ -5,10 +5,10 @@ import paramiko
 import uuid
 from openai import OpenAI
 from sshtunnel import SSHTunnelForwarder
-from tiktoken import TikToken
+import tiktoken
 
 ssh_key_str = st.secrets["ssh_key"]
-tokenizer = TikToken()
+tokenizer = tiktoken.get_encoding("cl100k_base")
 
 ssh_key_fileobj = io.StringIO(ssh_key_str)
 ssh_key_paramiko = paramiko.Ed25519Key.from_private_key(ssh_key_fileobj)
