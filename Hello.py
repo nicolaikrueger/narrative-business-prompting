@@ -147,7 +147,7 @@ def experiment():
                 stream=True,
             ):
                 full_response += (response.choices[0].delta.content or "")
-                token_cost += len(tokenizer.encode(response.choices[0].delta.content))
+                token_cost += len(tokenizer.encode(response.choices[0].content))
                 message_placeholder.markdown(full_response + "▌")
             message_placeholder.markdown(full_response)
         store_message("assistant", full_response, token_cost)
