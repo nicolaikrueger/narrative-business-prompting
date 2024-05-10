@@ -110,7 +110,13 @@ def homepage():
 def experiment():
     query = query_db("SELECT * FROM tasks WHERE uuid = %s", st.session_state['task_id'])
     st.title("Student Hackathon")
-    st.info("Imagine you are a consultant hired by a " + query[0]["company"] + " company in " + query[0]["location"] + " facing various challenges in the current business environment. The company produces " + query[0]["product"] + " and is experiencing increased competition, changing market dynamics, and disruptions in the supply chain.")
+    st.info("""
+            Imagine you are a consultant hired by a """ + query[0]["company"] + """ company in """ + query[0]["location"] + """ facing various challenges in the current business environment. 
+            The company produces """ + query[0]["product"] + """ and is experiencing increased competition, changing market dynamics, and disruptions in the supply chain.
+            \n1. Strategic Options: Propose at least three strategic options that the company could consider to address the challenges identified. 
+            \n2. Implementation Plan: Develop a detailed plan for implementing the chosen strategic option. Discuss potential obstacles and how the company can overcome them. What role does management play?
+            \n3. Implementation Plan: Develop a detailed plan for implementing the chosen strategic option. Discuss potential obstacles and how the company can overcome them. What role does management play?
+            """)
     if st.session_state['round'] == 2:
         #TODO: Add a prompt for the second round
         st.info("This is the second round of the experiment. We have prepared a prompt for you: \n ", icon="ℹ️")
@@ -156,7 +162,7 @@ def experiment():
     #sidebar
     with st.sidebar:
         st.title("Instructions")
-        st.write("You are a student of Business Administration attending a hackathon hosted by your instructor. The winner will receive a reward. This is the task written on your screen:")
+        st.write("You are a student of Business Administration attending a hackathon. This is the task written on your screen:")
 
         if st.button("Submit my solution"):
             # Check if there are any messages in the chat history
