@@ -8,3 +8,4 @@ sshtunnel
 pymysql
 paramiko
 uuid
+tiktoken

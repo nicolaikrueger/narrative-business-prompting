@@ -5,8 +5,10 @@ import paramiko
 import uuid
 from openai import OpenAI
 from sshtunnel import SSHTunnelForwarder
+from tiktoken import TikToken
 
 ssh_key_str = st.secrets["ssh_key"]
+tokenizer = TikToken()
 
 ssh_key_fileobj = io.StringIO(ssh_key_str)
 ssh_key_paramiko = paramiko.Ed25519Key.from_private_key(ssh_key_fileobj)
@@ -125,6 +127,8 @@ def experiment():
             st.markdown(message["content"])
 
     if prompt := st.chat_input("What is up?"):
+        token_cost = 0
+        token_cost += len(tokenizer.encode(prompt))
         store_message("user", prompt)
         with st.chat_message("user"):
             st.markdown(prompt)
@@ -142,7 +146,7 @@ def experiment():
                 stream=True,
             ):
                 full_response += (response.choices[0].delta.content or "")
-                token_cost += response.usage.total_tokens
+                token_cost += len(tokenizer.encode(response.choices[0].delta.content))
                 message_placeholder.markdown(full_response + "▌")
             message_placeholder.markdown(full_response)
         store_message("assistant", full_response, token_cost)
