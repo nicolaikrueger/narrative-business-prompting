@@ -122,7 +122,7 @@ def experiment():
     query = query_db("SELECT * FROM tasks WHERE uuid = %s", st.session_state['task_id'])
     st.title("Student Hackathon")
     st.info("""
-            Imagine you are a consultant hired by """ + query[0]["company"] + """ company in """ + query[0]["location"] + """ facing various challenges in the current business environment. 
+            Imagine you are a consultant hired by """ + query[0]["company"] + """ in """ + query[0]["location"] + """ facing various challenges in the current business environment. 
             The company produces """ + query[0]["product"] + """ and is experiencing increased competition, changing market dynamics, and disruptions in the supply chain.
            
             \n**1. Situation Analysis**: Provide a comprehensive analysis of the company's current situation, including a review of its internal and external environment. Identify key strengths, weaknesses, opportunities, and threats.
@@ -174,7 +174,7 @@ def experiment():
     #sidebar
     with st.sidebar:
         st.title("Instructions")
-        st.write("You are a student of Business Administration attending a hackathon. This is the task written on your screen:")
+        st.write("You are a student of Business Administration attending a hackathon. On the right, there is the task written on your screen.")
 
         st.write("When you are ready, submit.")
         if st.button("Submit"):
