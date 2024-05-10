@@ -222,8 +222,12 @@ def assess_your_story():
 
 
     with st.sidebar:
-        st.title("Your Submission")
-        st.write("You're almost done! Please assess your story and submit your evaluation.")
+        if st.session_state['round'] == 1:
+            st.title("Instructions")
+            st.write("You have finished the first round of the experiment. Please assess your story and submit your evaluation.")
+        else:
+            st.title("Your Submission")
+            st.write("You're almost done! Please assess your story and submit your evaluation.")
 
 def checkout():
     st.title("Thank you!")
