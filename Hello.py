@@ -113,11 +113,10 @@ def experiment():
     st.info("""
             Imagine you are a consultant hired by a """ + query[0]["company"] + """ company in """ + query[0]["location"] + """ facing various challenges in the current business environment. 
             The company produces """ + query[0]["product"] + """ and is experiencing increased competition, changing market dynamics, and disruptions in the supply chain.
-            **
-            \n1. Situation Analysis: Provide a comprehensive analysis of the company's current situation, including a review of its internal and external environment. Identify key strengths, weaknesses, opportunities, and threats.
-            \n2. Strategic Options: Propose at least three strategic options that the company could consider to address the challenges identified. 
-            \n3. Implementation Plan: Develop a detailed plan for implementing the chosen strategic option. Discuss potential obstacles and how the company can overcome them. What role does management play?
-            **
+           
+            \n**1. Situation Analysis**: Provide a comprehensive analysis of the company's current situation, including a review of its internal and external environment. Identify key strengths, weaknesses, opportunities, and threats.
+            \n**2. Strategic Options**: Propose at least three strategic options that the company could consider to address the challenges identified.
+            \n**3. Implementation Plan**: Develop a detailed plan for implementing the chosen strategic option. Discuss potential obstacles and how the company can overcome them. What role does management play?
             """)
     if st.session_state['round'] == 2:
         #TODO: Add a prompt for the second round
@@ -166,7 +165,7 @@ def experiment():
         st.title("Instructions")
         st.write("You are a student of Business Administration attending a hackathon. This is the task written on your screen:")
 
-        st.write("Whenever you are ready, submit.")
+        st.write("When you are ready, submit.")
         if st.button("Submit"):
             # Check if there are any messages in the chat history
             if st.session_state.messages and len(st.session_state.messages) > 0:
