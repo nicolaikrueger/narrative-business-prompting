@@ -210,7 +210,7 @@ def assess_your_story():
 
     with st.sidebar:
         st.title("Your Submission")
-        st.write("Goes here")
+        st.write("You're almost done! Please assess your story and submit your evaluation.")
 
 def checkout():
     st.title("Thank you!")
