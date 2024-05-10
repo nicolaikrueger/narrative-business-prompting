@@ -109,7 +109,7 @@ def homepage():
 
 def experiment():
     query = query_db("SELECT * FROM tasks WHERE uuid = %s", st.session_state['task_id'])
-    st.title("Narrative Business Prompting")
+    st.title("Student Hackathon Experiment 2024")
     st.markdown("<p style=\"border: .5rem solid black;padding: 1rem;background: blue;text: white;\">Imagine you are a consultant hired by a " + query[0]["company"] + " company in " + query[0]["location"] + " facing various challenges in the current business environment. The company produces " + query[0]["product"] + " and is experiencing increased competition, changing market dynamics, and disruptions in the supply chain.<br></p>", unsafe_allow_html=True)
     if st.session_state['round'] == 2:
         #TODO: Add a prompt for the second round
