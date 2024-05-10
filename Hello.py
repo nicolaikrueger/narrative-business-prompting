@@ -114,7 +114,7 @@ def experiment():
             Imagine you are a consultant hired by a """ + query[0]["company"] + """ company in """ + query[0]["location"] + """ facing various challenges in the current business environment. 
             The company produces """ + query[0]["product"] + """ and is experiencing increased competition, changing market dynamics, and disruptions in the supply chain.
             \n1. Strategic Options: Propose at least three strategic options that the company could consider to address the challenges identified. 
-            \n2. Implementation Plan: Develop a detailed plan for implementing the chosen strategic option. Discuss potential obstacles and how the company can overcome them. What role does management play?
+            \n2. Strategic Options: Propose at least three strategic options that the company could consider to address the challenges identified. 
             \n3. Implementation Plan: Develop a detailed plan for implementing the chosen strategic option. Discuss potential obstacles and how the company can overcome them. What role does management play?
             """)
     if st.session_state['round'] == 2:
