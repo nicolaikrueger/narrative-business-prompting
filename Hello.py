@@ -122,7 +122,7 @@ def experiment():
     query = query_db("SELECT * FROM tasks WHERE uuid = %s", st.session_state['task_id'])
     st.title("Student Hackathon")
     st.info("""
-            Imagine you are a consultant hired by a """ + query[0]["company"] + """ company in """ + query[0]["location"] + """ facing various challenges in the current business environment. 
+            Imagine you are a consultant hired by """ + query[0]["company"] + """ company in """ + query[0]["location"] + """ facing various challenges in the current business environment. 
             The company produces """ + query[0]["product"] + """ and is experiencing increased competition, changing market dynamics, and disruptions in the supply chain.
            
             \n**1. Situation Analysis**: Provide a comprehensive analysis of the company's current situation, including a review of its internal and external environment. Identify key strengths, weaknesses, opportunities, and threats.
