@@ -58,6 +58,13 @@ def choose_random_task():
     result = query_db("SELECT uuid FROM tasks ORDER BY RAND() LIMIT 1")
     return result[0]["uuid"]
 
+def presenting_the_task():
+    st.title("Research Narrative Business Prompting")
+    st.write("In this experiment, you will use a narrative Business Prompting Engine and experience its effects. This experiment will help develop and prove the use value of an assisted narrative business prompt engineering framework.")
+    if st.button("Let's start the experiment"):
+        st.session_state['page'] = 'homepage'
+        st.rerun()
+
 def homepage():
     st.title("Narrative Business Prompting 0.2")
     st.write("In this experiment, you will use a narrative Business Prompting Engine and experience its effects. This experiment will help develop and prove the use value of an assisted narrative business prompt engineering framework.")
@@ -232,10 +239,12 @@ def checkout():
             st.rerun()
 
 def main():
-    st.session_state.setdefault('page', 'Begin experiment')
+    st.session_state.setdefault('page', 'presenting_the_task')
     page = st.session_state['page']
 
-    if page == 'Begin experiment':
+    if page == 'presenting_the_task':
+        presenting_the_task()
+    elif page == 'homepage':
         homepage()
     elif page == 'experiment':
         experiment()
