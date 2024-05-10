@@ -176,8 +176,8 @@ def experiment():
         st.title("Instructions")
         st.write("You are a student of Business Administration attending a hackathon. On the right, there is the task written on your screen.")
 
-        st.write("When you are ready, submit.")
-        if st.button("Submit"):
+        st.write("When you are ready, proceed to the next step.")
+        if st.button("Proceed to the next step"):
             # Check if there are any messages in the chat history
             if st.session_state.messages and len(st.session_state.messages) > 0:
                 st.session_state['page'] = 'finished_prompting'
