@@ -145,7 +145,7 @@ def experiment():
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
-    if prompt := st.chat_input("What is up?"):
+    if prompt := st.chat_input("Put your prompt here. What would you like to ask the AI?"):
         token_cost = 0
         token_cost += len(tokenizer.encode(prompt))
         store_message("user", prompt)
