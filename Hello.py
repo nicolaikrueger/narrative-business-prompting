@@ -62,7 +62,7 @@ def presenting_the_task():
     st.title("Research Narrative Business Prompting")
     st.write("In this experiment, you will use a narrative Business Prompting Engine and experience its effects. This experiment will help develop and prove the use value of an assisted narrative business prompt engineering framework.")
     if st.button("Let's start the experiment"):
-        st.session_state['page'] = 'homepage'
+        st.session_state['page'] = 'legal_stuff'
         st.rerun()
 
 def legal_stuff():
@@ -256,6 +256,8 @@ def main():
 
     if page == 'presenting_the_task':
         presenting_the_task()
+    elif page == 'legal_stuff':
+        legal_stuff()
     elif page == 'homepage':
         homepage()
     elif page == 'experiment':
