@@ -51,7 +51,3 @@ The qualitative insights gathered by the study will be published in a joint rese
 I have read the information for the above-mentioned study.
 
 I am aware that my participation in the study is completely voluntary and that I will not suffer any disadvantages if I refuse my consent. I can revoke my consent at any time with effect for the future without having to give reasons and without any disadvantages arising from this. In the event of revocation, my personal data will be deleted.
-
-- I consent to the collection, processing, storage, and disclosure of my data as described in the legal disclaimer.
-
-Consent
