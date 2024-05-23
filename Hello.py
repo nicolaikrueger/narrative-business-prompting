@@ -65,6 +65,17 @@ def presenting_the_task():
         st.session_state['page'] = 'homepage'
         st.rerun()
 
+def legal_stuff():
+    st.title("Data privacy policy")
+    # load markdown from legal_disclaimer.md
+    with open("legal_disclaimer.md", "r") as file:
+        legal_text = file.read()
+    st.markdown(legal_text)
+    if st.checkbox('I consent to the collection, processing, storage, and disclosure of my data as described in the legal disclaimer.'):
+        if st.button("Let's start the experiment"):
+            st.session_state['page'] = 'homepage'
+            st.rerun()
+
 def homepage():
     st.title("Narrative Business Prompting 0.2")
     st.write("In this experiment, you will use a narrative Business Prompting Engine and experience its effects. This experiment will help develop and prove the use value of an assisted narrative business prompt engineering framework.")
@@ -92,30 +103,27 @@ def homepage():
     if role == 'Other':
         other_role = st.text_input('Please specify your role')
 
-    # Checkbox for the terms of service
-    st.write('Please read and agree to the terms of service')
-    if st.checkbox('I agree to the terms of service'):
-        if st.button("Let's start the experiment"):
-            # if the user agrees to the terms of service, start the experiment
-            task_id = choose_random_task()
-            conversation_uuid = str(uuid.uuid4())
-            st.session_state['task_id'] = task_id
-            st.session_state['conversation_uuid'] = conversation_uuid
-            sql = """
-            INSERT INTO conversations 
-            (uuid, task_id, start_time, end_time, accepted_tos, age, tech_savviness, storytelling_experience, casestudy_experience, role) 
-            VALUES 
-            (%s, %s, NOW(), null, true, %s, %s, %s, %s, %s);
-            """
-            values = (conversation_uuid, task_id, age, tech_savviness, storytelling_experience, casestudy_experience, role if role != 'Other' else other_role)
-            rows_affected = query_db(sql, values)
-            if rows_affected is None:
-                st.error("Failed to start the experiment. Please try again.")
-            else:
-                st.session_state['round'] = 1
-                st.session_state['sequence'] = 1
-                st.session_state['page'] = 'experiment'
-                st.rerun()
+    if st.button("Let's start the experiment"):
+        # if the user agrees to the terms of service, start the experiment
+        task_id = choose_random_task()
+        conversation_uuid = str(uuid.uuid4())
+        st.session_state['task_id'] = task_id
+        st.session_state['conversation_uuid'] = conversation_uuid
+        sql = """
+        INSERT INTO conversations 
+        (uuid, task_id, start_time, end_time, accepted_tos, age, tech_savviness, storytelling_experience, casestudy_experience, role) 
+        VALUES 
+        (%s, %s, NOW(), null, true, %s, %s, %s, %s, %s);
+        """
+        values = (conversation_uuid, task_id, age, tech_savviness, storytelling_experience, casestudy_experience, role if role != 'Other' else other_role)
+        rows_affected = query_db(sql, values)
+        if rows_affected is None:
+            st.error("Failed to start the experiment. Please try again.")
+        else:
+            st.session_state['round'] = 1
+            st.session_state['sequence'] = 1
+            st.session_state['page'] = 'experiment'
+            st.rerun()
 
 
 def experiment():
