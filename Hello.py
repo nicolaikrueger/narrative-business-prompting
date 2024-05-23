@@ -72,7 +72,7 @@ def legal_stuff():
         legal_text = file.read()
     st.markdown(legal_text)
     if st.checkbox('I consent to the collection, processing, storage, and disclosure of my data as described in the legal disclaimer.'):
-        if st.button("Let's start the experiment"):
+        if st.button("Consent"):
             st.session_state['page'] = 'homepage'
             st.rerun()
 
