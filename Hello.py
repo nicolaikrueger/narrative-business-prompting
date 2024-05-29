@@ -217,7 +217,7 @@ def assess_your_story():
 
     selfassessment["actualuse"] = st.slider('How likely will you use this', 0, 5, 3)
 
-    button_text = "Submit and finish experiment" if st.session_state['round'] > 1 else "Continue to round two"
+    button_text = "Submit and finish experiment"
     if st.button(button_text):
         query_db("UPDATE conversations SET end_time = NOW() WHERE uuid = %s", st.session_state["conversation_uuid"])
         for key, value in selfassessment.items():
@@ -226,30 +226,16 @@ def assess_your_story():
             VALUES (UUID(), %s, %s, %s, %s);
             """
             query_db(sql, (st.session_state["conversation_uuid"], key, value, st.session_state["round"]))
-        st.session_state['page'] = 'checkout'
-        st.rerun()
+            st.session_state['page'] = 'checkout'
+            st.rerun()
 
 
     with st.sidebar:
-        if st.session_state['round'] == 1:
-            st.title("Instructions")
-            st.write("You have finished the first round of the experiment. Please assess your story and submit your evaluation.")
-        else:
-            st.title("Your Submission")
-            st.write("You're almost done! Please assess your story and submit your evaluation.")
+        st.title("Your Submission")
+        st.write("You're almost done! Please assess your story and submit your evaluation.")
 
 def checkout():
     st.title("Thank you!")
-    if st.session_state['round'] == 1:
-        st.write("You have finished the first round of the experiment. Do you want to try again with help?")
-
-        #ToDo remove restart button
-        if st.button("Yes, Restart experiment!"):
-            st.session_state['round'] = 2
-            st.session_state['sequence'] = 1
-            st.session_state['messages'] = []
-            st.session_state['page'] = 'experiment'
-            st.rerun()
 
 def main():
     st.session_state.setdefault('page', 'presenting_the_task')
