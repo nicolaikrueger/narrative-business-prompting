@@ -76,10 +76,10 @@ def legal_stuff():
     if st.checkbox('I consent to the collection, processing, storage, and disclosure of my data as described in the legal disclaimer.'):
         if st.button("Consent"):
             st.session_state['page'] = 'homepage'
-            st.set_page_config(layout="centered") 
             st.rerun()
 
 def homepage():
+    st.set_page_config(layout="centered")
     st.title("Narrative Business Prompting")
     st.write("Please tell us something about yourself.")
 
