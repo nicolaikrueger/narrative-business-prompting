@@ -83,8 +83,8 @@ def homepage():
 
     #sidebar
     with st.sidebar:
-        st.title("Data privacy policy")
-        st.write("Put the legal stuff here...")
+       # st.title("Data privacy policy")
+       # st.write("Put the legal stuff here...")
 
     # questions regarding the user
     tech_savviness = st.slider('Tech Savviness', 1, 5, 3)
