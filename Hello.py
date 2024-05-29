@@ -66,12 +66,12 @@ def presenting_the_task():
         st.rerun()
 
 def legal_stuff():
+    st.set_page_config(layout="wide") 
     st.title("Data privacy policy")
     # load markdown from legal_disclaimer.md
     with open("legal_disclaimer.md", "r") as file:
         legal_text = file.read()
     
-    # ToDo: Kriegen wir das auf die ganze Breite?
     st.markdown(legal_text)
     if st.checkbox('I consent to the collection, processing, storage, and disclosure of my data as described in the legal disclaimer.'):
         if st.button("Consent"):
