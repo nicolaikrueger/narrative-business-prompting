@@ -60,7 +60,7 @@ def choose_random_task():
 
 def presenting_the_task():
     st.title("Research Narrative Business Prompting")
-    st.write("In this experiment, you will use a narrative Business Prompting Engine and experience its effects. This experiment will help develop and prove the use value of an assisted narrative business prompt engineering framework.")
+    st.write("In this experiment, you will create a case study with the help of a Large Language Model (LLM). This research will help develop and prove the use value of an assisted narrative business prompt engineering framework.")
     if st.button("Let's start the experiment"):
         st.session_state['page'] = 'legal_stuff'
         st.rerun()
