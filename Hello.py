@@ -217,7 +217,8 @@ def assess_your_story():
 
     selfassessment["actualuse"] = st.slider('How likely will you use this', 0, 5, 3)
 
-    if st.button("Submit and finish experiment"):
+    button_text = "Submit and finish experiment" if st.session_state['round'] > 1 else "Continue to round two"
+    if st.button(button_text):
         query_db("UPDATE conversations SET end_time = NOW() WHERE uuid = %s", st.session_state["conversation_uuid"])
         for key, value in selfassessment.items():
             sql = """
