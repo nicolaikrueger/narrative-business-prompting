@@ -4,7 +4,7 @@ With our research project, we want to make a viable contribution to streamlining
 
 The study is carried out in collaboration between Nicolai Krüger and Niklas Dahmen of International University and Daniel Cordes and Irina Simon of Ruhr West University.
 
-In the two-partite experiment, we will be asking participants to create a case study using a Large Language Model (LLM), first on their own and then with the assistance of a mega-prompt.
+In this experiment, we will be asking participants to create a case study using a Large Language Model (LLM).
 
 In the following, we will inform you about the handling of your personal data in accordance with data protection law and ask for your consent to participate in our study and to use your data for the specified purposes.
 
