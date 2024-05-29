@@ -82,7 +82,7 @@ def homepage():
     st.write("Please tell us something about yourself and get familiar with our data privacy policy (written in the sidebar).")
 
     #sidebar
-    with st.sidebar:
+    # with st.sidebar:
        # st.title("Data privacy policy")
        # st.write("Put the legal stuff here...")
 
