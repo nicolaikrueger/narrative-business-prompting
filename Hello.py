@@ -211,7 +211,7 @@ def assess_your_story():
     st.write('0 = very low rank; 5 = very high rank')
     selfassessment = {}
 
-    selfassessment["creativity"] = st.slider('Creativity', 0, 5, 3)
+    selfassessment["creativity"] = st.slider('Creativity', options['very generic', 'somewhat generic', 'undecided', 'somewhat inspiring', 'very inspiring'], value=('very generic', 'very inspiring'))
 
     selfassessment["innovaiton"] = st.slider('Innovation', 0, 5, 3)
 
