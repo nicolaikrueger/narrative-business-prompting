@@ -237,7 +237,9 @@ def assess_your_story():
         st.write("You're almost done! Please assess your story and submit your evaluation.")
 
 def checkout():
-    st.title("Thank you!")
+    st.title("Thank you for your participation!")
+    st.write("You may close this tab now.")
+    st.balloons()
 
 def main():
     st.session_state.setdefault('page', 'presenting_the_task')
