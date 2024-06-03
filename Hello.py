@@ -211,14 +211,14 @@ def assess_your_story():
     st.write('0 = very low rank; 5 = very high rank')
     selfassessment = {}
 
+    selfassessment["accuracy"] = st.select_slider('Accuracy', options=['very generic', 'somewhat generic', 'undecided', 'somewhat inspiring', 'very inspiring'])
+
+
+    selfassessment["probability"] = st.select_slider('Probability', options=['very generic', 'somewhat generic', 'undecided', 'somewhat inspiring', 'very inspiring'])
+
     selfassessment["creativity"] = st.select_slider('Creativity', options=['very generic', 'somewhat generic', 'undecided', 'somewhat inspiring', 'very inspiring'])
 
-
-    selfassessment["innovaiton"] = st.select_slider('Innovation', options=['very generic', 'somewhat generic', 'undecided', 'somewhat inspiring', 'very inspiring'])
-
-    selfassessment["applicability"] = st.select_slider('Applicability', options=['very generic', 'somewhat generic', 'undecided', 'somewhat inspiring', 'very inspiring'])
-
-    selfassessment["actualuse"] = st.select_slider('How likely will you use this', options=['ready to use', 'almost ready to use', 'undecided', 'needs some work', 'needs extensive work'])
+    selfassessment["applicability"] = st.select_slider('Applicability', options=['ready to use', 'almost ready to use', 'undecided', 'needs some work', 'needs extensive work'])
 
     button_text = "Submit and finish experiment"
     if st.button(button_text):
