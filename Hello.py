@@ -207,7 +207,7 @@ def store_message(role, content, token_cost=0):
 
 def assess_your_story():
     st.title("Please assess your story.")
-    st.write('Read your story and evaluate in terms of a) creativity/ innovation (generic v. Unique) b) applicability (once/ very specific / Needs Work v. General/ directly deployable ) c) how likely will you use this')
+    st.write('Read your story and evaluate in terms of a) accuracy to fit with the case, b) probability to use it in a hypothetic lecture, c) level of creativity and d) applicability for a hypothetic lecture dealing with that case.')
     st.write('0 = very low rank; 5 = very high rank')
     selfassessment = {}
 
