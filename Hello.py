@@ -223,11 +223,16 @@ def assess_your_story():
     if st.button(button_text):
         query_db("UPDATE conversations SET end_time = NOW() WHERE uuid = %s", st.session_state["conversation_uuid"])
         for key, value in selfassessment.items():
+            print(f"Inserting {key}: {value}")
             sql = """
             INSERT INTO ratings (uuid, conversation_uuid, rating_type_id, rating, round)
             VALUES (UUID(), %s, %s, %s, %s);
             """
-            query_db(sql, (st.session_state["conversation_uuid"], key, value, st.session_state["round"]))
+            result = query_db(sql, (st.session_state["conversation_uuid"], key, value, st.session_state["round"]))
+            if result is None:
+                print(f"Failed to insert {key}: {value}")  # Error logging
+            else:
+                print(f"Successfully inserted {key}: {value}, Rows affected: {result}")  # Success logging
         st.session_state['page'] = 'checkout'
         st.rerun()
 
