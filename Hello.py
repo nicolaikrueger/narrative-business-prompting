@@ -228,8 +228,8 @@ def assess_your_story():
             VALUES (UUID(), %s, %s, %s, %s);
             """
             query_db(sql, (st.session_state["conversation_uuid"], key, value, st.session_state["round"]))
-            st.session_state['page'] = 'checkout'
-            st.rerun()
+        st.session_state['page'] = 'checkout'
+        st.rerun()
 
 
     with st.sidebar:
