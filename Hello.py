@@ -158,7 +158,7 @@ def experiment():
     if prompt := st.chat_input("Put your prompt here. What would you like to ask the AI?"):
         token_cost = 0
         token_cost += len(tokenizer.encode(prompt))
-        store_message("user", prompt)
+        store_message("user", prompt, token_cost)
         with st.chat_message("user"):
             st.markdown(prompt)
 
