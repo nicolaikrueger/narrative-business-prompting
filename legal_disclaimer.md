@@ -38,7 +38,7 @@ _OpenAI
 L.L.C.3180 18th StSan Francisco  
 California 94110_
 
-**_Frontend- & Backendservices: Snowflake Inc. (Streamlit)_**_  
+**_Frontend- & Backendservices: Snowflake Inc. (Streamlit)_**  
 Suite 3A, 106 East Babcock Street, Bozeman, Montana  
 59715, USA_
 

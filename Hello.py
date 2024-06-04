@@ -211,7 +211,7 @@ def assess_your_story():
     st.write('0 = very low rank; 5 = very high rank')
     selfassessment = {}
 
-    selfassessment["accuracy"] = st.select_slider('Accuracy', options=['very general', 'somewhat general', 'undecided', 'somewhat general', 'very general'])
+    selfassessment["accuracy"] = st.select_slider('Accuracy', options=['very general', 'somewhat general', 'undecided', 'somewhat specific', 'very specific'])
 
     selfassessment["probability"] = st.select_slider('Probability', options=['very realistic', 'somewhat realistic', 'undecided', 'somewhat far-fetched', 'very far-fetched'])
 
