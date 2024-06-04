@@ -213,7 +213,6 @@ def assess_your_story():
 
     selfassessment["accuracy"] = st.select_slider('Accuracy', options=['very general', 'somewhat general', 'undecided', 'somewhat general', 'very general'])
 
-
     selfassessment["probability"] = st.select_slider('Probability', options=['very realistic', 'somewhat realistic', 'undecided', 'somewhat far-fetched', 'very far-fetched'])
 
     selfassessment["creativity"] = st.select_slider('Creativity', options=['very generic', 'somewhat generic', 'undecided', 'somewhat inspiring', 'very inspiring'])
