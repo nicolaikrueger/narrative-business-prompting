@@ -61,9 +61,18 @@ def choose_random_task():
 def presenting_the_task():
     st.title("Research Narrative Business Prompting")
     st.write("In this experiment, you will create a case study with the help of a Large Language Model (LLM). This research will help develop and prove the use value of an assisted narrative business prompting framework.")
+    
+    # check participation code which shall be stored in secrets
+    participation_code = st.text_input("Please enter the participation code that you received from your researcher" ,type="password")
+    participation_codes = (st.secrets["participation_code_nk"], st.secrets["participation_code_is"])
+
     if st.button("Let's start the experiment"):
-        st.session_state['page'] = 'legal_stuff'
-        st.rerun()
+        if participation_code in participation_codes:
+            st.success("Participation code is correct.")
+            st.session_state['page'] = 'legal_stuff'
+            st.experimental_rerun()
+        else:
+            st.error("Invalid participation code.")
 
 def legal_stuff():
     st.set_page_config(layout="wide") 
