@@ -139,14 +139,34 @@ def homepage():
 
 def experiment():
     query = query_db("SELECT * FROM tasks WHERE uuid = %s", st.session_state['task_id'])
-    st.title("Student Hackathon")
+    st.title("Create your own Case Study")
     st.info("""
-            Imagine you are a consultant hired by """ + query[0]["company"] + """ in """ + query[0]["location"] + """ facing various challenges in the current business environment. 
-            The company produces """ + query[0]["product"] + """ and is experiencing increased competition, changing market dynamics, and disruptions in the supply chain.
-           
-            \n**1. Situation Analysis**: Provide a comprehensive analysis of the company's current situation, including a review of its internal and external environment. Identify key strengths, weaknesses, opportunities, and threats.
-            \n**2. Strategic Options**: Propose at least three strategic options that the company could consider to address the challenges identified.
-            \n**3. Implementation Plan**: Develop a detailed plan for implementing the chosen strategic option. Discuss potential obstacles and how the company can overcome them. What role does management play?
+            The input field below is linked to openai's large
+            language model.
+            Use the AI to create a case study about """ + query[0]["company"] + """
+            who produces """ + query[0]["product"] + """ in """ + query[0]["location"] + """. """ + query[0]["company"] + """ is
+            faced with a disruptive event and employs a strategy
+            to overcome the crisis.
+            \n**Step 1:**
+            \nYour case study needs a disruptive event or crisis, such
+            as: massive power outage, natural disaster, cyber
+            attack, health emergency, criminal activity, product
+            recall, production problems, bad publicity, losing
+            customers to competitors, or any other... It's your
+            choice! Start a conversation with the AI on what could
+            be the crisis in your case study about """ + query[0]["company"] + """.
+            Which disruptive event would you like to incorporate
+            into your case study?
+            \n**Step 2:**
+            \nLet the AI generate a list of possible strategies to solve
+            the crisis from step 1 and choose your favorite
+            strategy. You can also create your own disruptive
+            event and strategy for step 1 + 2.
+            \n**Step 3:**
+            \nLet the AI formulate your case study based on these
+            parameters:
+            [[company]] + [[location]] + [[product]] + [[disruptive
+            event/ crisis]] + [[strategy]].
             """)
     if st.session_state['round'] == 2:
         #TODO: Add a prompt for the second round
@@ -192,6 +212,12 @@ def experiment():
                 
     #sidebar
     with st.sidebar:
+        st.write("""
+            A case study is a research method that provides a detailed and contextualized analysis of a
+            phenomenon with the goal of understanding the rationale behind decision- making processes and their
+            resulting outcomes. Effective case studies are comprehensive and incorporate diverse perspectives,
+            substantiated by evidence. They are presented in a compelling manner that engages the reader.
+        """)
         st.title("Instructions")
         st.write("You are a student of Business Administration attending a hackathon. On the right, there is the task written on your screen.")
 
