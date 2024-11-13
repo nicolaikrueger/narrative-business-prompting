@@ -155,7 +155,7 @@ def experiment():
             customers to competitors, or any other... It's your
             choice! Start a conversation with the AI on what could
             be the crisis in your case study about """ + query[0]["company"] + """.
-            Which disruptive event would you like to incorporate
+            Which disruptive event would you like to incorporate on your own
             into your case study?
             \n**Step 2:**
             \nLet the AI generate a list of possible strategies to solve
@@ -218,10 +218,8 @@ def experiment():
             resulting outcomes. Effective case studies are comprehensive and incorporate diverse perspectives,
             substantiated by evidence. They are presented in a compelling manner that engages the reader.
         """)
-        st.title("Instructions")
-        st.write("You are a student of Business Administration attending a hackathon. On the right, there is the task written on your screen.")
 
-        st.write("When you are ready, proceed to the next step.")
+        st.write("When you are finished, proceed to the next step.")
         if st.button("Proceed to the next step"):
             # Check if there are any messages in the chat history
             if st.session_state.messages and len(st.session_state.messages) > 0:
