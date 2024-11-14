@@ -155,7 +155,7 @@ def experiment():
             customers to competitors, or any other... It's your
             choice! Start a conversation with the AI on what could
             be the crisis in your case study about """ + query[0]["company"] + """.
-            Which disruptive event would you like to incorporate on your own
+            Which disruptive event would you like to incorporate
             into your case study?
             \n**Step 2:**
             \nLet the AI generate a list of possible strategies to solve
@@ -214,7 +214,7 @@ def experiment():
     with st.sidebar:
         st.write("""
             A case study is a research method that provides a detailed and contextualized analysis of a
-            phenomenon with the goal of understanding the rationale behind decision- making processes and their
+            phenomenon with the goal of understanding the rationale behind decision-making processes and their
             resulting outcomes. Effective case studies are comprehensive and incorporate diverse perspectives,
             substantiated by evidence. They are presented in a compelling manner that engages the reader.
         """)
